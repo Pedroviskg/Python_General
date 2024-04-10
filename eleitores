@@ -1,0 +1,63 @@
+candidato_1 = input()
+candidato_2 = input()
+candidato_3 = input()
+
+votos_1 = input()
+votos_2 = input()
+votos_3 = input()
+
+total_de_votos = float(votos_1 + votos_2 + votos_3)
+empate = (total_de_votos) / 2
+
+erro = 0
+
+try:
+    total_de_votos > 20000
+    votos_1 = int(votos_1)
+    votos_2 = int(votos_2)
+    votos_3 = int(votos_3)
+    candidato_1 = str(candidato_1)
+    candidato_2 = str(candidato_2)
+    candidato_3 = str(candidato_3)
+except:
+    erro = 1
+##
+porcentagem_1 = (votos_1 / total_de_votos) * 100
+porcentagem_2 = (votos_2 / total_de_votos) * 100
+porcentagem_3 = (votos_3 / total_de_votos) * 100
+##
+
+if erro == 1:
+    print("Entrada inválida")
+else:
+    print('teste')
+    
+    # É unânime?
+
+    if votos_1 > empate or votos_2 > empate or votos_3 > empate:
+        ganhador = candidato_1
+        if votos_2 > votos_1:
+            ganhador = candidato_2
+        if votos_3 > votos_2 and votos_3 > votos_1:
+            ganhador = candidato_3
+        print('O ganhador é', ganhador)
+        
+    # Não é unânime
+    
+    else:
+        maior = candidato_1
+        if votos_2 > votos_1:
+            maior = candidato_2
+        if votos_3 > votos_1 and votos_3 > votos_1:
+            maior = candidato_3
+
+        meio = candidato_1
+        if votos_1 < votos_2 < votos_3 or votos_3 < votos_2 < votos_1:
+            meio = candidato_2
+        if votos_1 < votos_3 < votos_2 or votos_3 < votos_3 < votos_1:
+            meio = candidato_3
+
+        print("Empate entre:",maior,"e",meio,". As porcentagens são", porcentagem_1)
+        
+    
+
