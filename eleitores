@@ -11,6 +11,7 @@ empate = (total_de_votos) / 2
 
 erro = 0
 
+# Por que só a verificação de números inteiros funciona?
 try:
     total_de_votos > 20000
     votos_1 = int(votos_1)
@@ -21,7 +22,7 @@ try:
     candidato_3 = str(candidato_3)
 except:
     erro = 1
-##
+## Verificar o porquê as porcentagens não estão funcionando. Problema de tipo?
 porcentagem_1 = (votos_1 / total_de_votos) * 100
 porcentagem_2 = (votos_2 / total_de_votos) * 100
 porcentagem_3 = (votos_3 / total_de_votos) * 100
@@ -56,7 +57,7 @@ else:
             meio = candidato_2
         if votos_1 < votos_3 < votos_2 or votos_3 < votos_3 < votos_1:
             meio = candidato_3
-
+# Relembrar o limitador de casas numéricas usando %2f. Rever o código básico de atribuição e seleção.
         print("Empate entre:",maior,"e",meio,". As porcentagens são", porcentagem_1)
         
     
