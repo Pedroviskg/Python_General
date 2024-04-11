@@ -6,31 +6,38 @@ votos_1 = input()
 votos_2 = input()
 votos_3 = input()
 
-total_de_votos = float(votos_1 + votos_2 + votos_3)
-empate = (total_de_votos) / 2
-
 erro = 0
 
 # Por que só a verificação de números inteiros funciona?
 try:
-    total_de_votos > 20000
     votos_1 = int(votos_1)
     votos_2 = int(votos_2)
-    votos_3 = int(votos_3)
-    candidato_1 = str(candidato_1)
-    candidato_2 = str(candidato_2)
-    candidato_3 = str(candidato_3)
+    votos_3 = int(votos_3)  
 except:
     erro = 1
-## Verificar o porquê as porcentagens não estão funcionando. Problema de tipo?
-porcentagem_1 = (votos_1 / total_de_votos) * 100
-porcentagem_2 = (votos_2 / total_de_votos) * 100
-porcentagem_3 = (votos_3 / total_de_votos) * 100
-##
 
-if erro == 1:
+try:
+    candidato_1 != str(candidato_1)
+    candidato_2 != str(candidato_2)
+    candidato_3 != str(candidato_3)
+except:
+  erro = 2
+
+
+
+if erro == 1 or erro == 2:
     print("Entrada inválida")
 else:
+    
+    verify_1 = int(votos_1)
+    verify_2 = int(votos_2)
+    verify_3 = int(votos_3)
+    total_de_votos = int(verify_1 + verify_2 + verify_3)
+    empate = (total_de_votos) / 2
+    porcentagem_1 = (votos_1 / total_de_votos) * 100
+    porcentagem_2 = (votos_2 / total_de_votos) * 100
+    porcentagem_3 = (votos_3 / total_de_votos) * 100
+
     print('teste')
     
     # É unânime?
@@ -47,18 +54,23 @@ else:
     
     else:
         maior = candidato_1
+        p_maior = porcentagem_1
         if votos_2 > votos_1:
             maior = candidato_2
+            p_maior = porcentagem_2
         if votos_3 > votos_1 and votos_3 > votos_1:
             maior = candidato_3
+            p_maior = porcentagem_3
 
         meio = candidato_1
+        p_meio = porcentagem_1
         if votos_1 < votos_2 < votos_3 or votos_3 < votos_2 < votos_1:
             meio = candidato_2
+            p_meio = porcentagem_2
         if votos_1 < votos_3 < votos_2 or votos_3 < votos_3 < votos_1:
             meio = candidato_3
+            p_meio = porcentagem_3
 # Relembrar o limitador de casas numéricas usando %2f. Rever o código básico de atribuição e seleção.
-        print("Empate entre:",maior,"e",meio,". As porcentagens são", porcentagem_1)
-        
-    
+        print("Empate entre:",maior,"e",meio,". As porcentagens são", p_maior, 'e', p_meio)
+        ##print(total_de_votos, porcentagem_1)
 
