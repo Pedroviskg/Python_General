@@ -8,27 +8,19 @@ votos_3 = input()
 
 erro = 0
 
-# Por que só a verificação de números inteiros funciona?
 try:
     votos_1 = int(votos_1)
     votos_2 = int(votos_2)
-    votos_3 = int(votos_3)  
+    votos_3 = int(votos_3)
+
 except:
     erro = 1
 
-try:
-    candidato_1 != str(candidato_1)
-    candidato_2 != str(candidato_2)
-    candidato_3 != str(candidato_3)
-except:
-  erro = 2
-
-
-
-if erro == 1 or erro == 2:
+if erro == 1 or votos_1 < 0 or votos_2 < 0 or votos_3 < 0:
     print("Entrada inválida")
+
 else:
-    
+
     verify_1 = int(votos_1)
     verify_2 = int(votos_2)
     verify_3 = int(votos_3)
@@ -38,39 +30,49 @@ else:
     porcentagem_2 = (votos_2 / total_de_votos) * 100
     porcentagem_3 = (votos_3 / total_de_votos) * 100
 
-    print('teste')
-    
     # É unânime?
-
-    if votos_1 > empate or votos_2 > empate or votos_3 > empate:
+    p_maior = porcentagem_1
+    if (verify_1 + verify_2 + verify_3) < 20000:
         ganhador = candidato_1
-        if votos_2 > votos_1:
-            ganhador = candidato_2
-        if votos_3 > votos_2 and votos_3 > votos_1:
-            ganhador = candidato_3
-        print('O ganhador é', ganhador)
-        
-    # Não é unânime
-    
-    else:
-        maior = candidato_1
         p_maior = porcentagem_1
         if votos_2 > votos_1:
+            ganhador = candidato_2
+            p_maior = porcentagem_2
+        if votos_3 > votos_2 and votos_3 > votos_1:
+            ganhador = candidato_3
+            p_maior = porcentagem_3
+        print(ganhador, "venceu no primeiro turno com %.2f%% dos votos" % p_maior)
+    elif votos_1 > empate or votos_2 > empate or votos_3 > empate:
+
+          ganhador = candidato_1
+          p_maior = porcentagem_1
+          if votos_2 > votos_1:
+            ganhador = candidato_2
+            p_maior = porcentagem_2
+          if votos_3 > votos_2 and votos_3 > votos_1:
+            ganhador = candidato_3
+            p_maior = porcentagem_3
+          print(ganhador, "venceu no primeiro turno com %.2f%% dos votos" % p_maior)
+
+    else:
+
+          maior = candidato_1
+          p_maior = porcentagem_1
+          if votos_2 > votos_1:
             maior = candidato_2
             p_maior = porcentagem_2
-        if votos_3 > votos_1 and votos_3 > votos_1:
+          if votos_3 > votos_1 and votos_3 > votos_2:
             maior = candidato_3
             p_maior = porcentagem_3
 
-        meio = candidato_1
-        p_meio = porcentagem_1
-        if votos_1 < votos_2 < votos_3 or votos_3 < votos_2 < votos_1:
+          meio = candidato_1
+          p_meio = porcentagem_1
+          if votos_1 < votos_2 < votos_3 or votos_3 < votos_2 < votos_1:
             meio = candidato_2
             p_meio = porcentagem_2
-        if votos_1 < votos_3 < votos_2 or votos_3 < votos_3 < votos_1:
+          if votos_1 < votos_3 < votos_2 or votos_2 < votos_3 < votos_1:
             meio = candidato_3
-            p_meio = porcentagem_3
-# Relembrar o limitador de casas numéricas usando %2f. Rever o código básico de atribuição e seleção.
-        print("Empate entre:",maior,"e",meio,". As porcentagens são", p_maior, 'e', p_meio)
-        ##print(total_de_votos, porcentagem_1)
+            p_meio = (porcentagem_3)
 
+          mensagem = "disputarão o segundo turno com %.2f%% e %.2f%% votos respectivamente" % (p_maior, p_meio)
+          print(maior,"e",meio, mensagem)
