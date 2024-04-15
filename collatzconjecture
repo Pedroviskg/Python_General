@@ -1,0 +1,39 @@
+## CONSERTAR TABULAÇÕES!
+number = input()
+erro = 0
+print('Conjectura de Collatz para N =',number)
+try:
+    number = int(number)
+except:
+    erro = 1
+    
+if erro == 1 or number < 0:
+    print('Entrada inválida')
+else:
+    #Se par, number/2. Se ímpar, number*3 + 1
+    
+    while number != 1:
+        if number % 2 == 0:
+            number = int(number/2)
+            hashtag = int(number)
+            number_of_hash = hashtag*'#'
+            if number < 10:
+                space = '  '
+                print(number,space,number_of_hash)
+            else:
+                space = ' '
+                print(number,space,number_of_hash)
+       
+        
+        else:
+            number = int(number*3 + 1)
+            hashtag = int(number)
+            number_of_hash = hashtag*'#'
+            if number < 10:
+                space = '  '
+                print(number,space,number_of_hash)
+            else:
+                space = ' '
+                print(number,space,number_of_hash)
+    
+       
