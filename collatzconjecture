@@ -1,7 +1,7 @@
 ## CONSERTAR TABULAÇÕES!
 number = input()
 erro = 0
-print('Conjectura de Collatz para N =',number)
+
 try:
     number = int(number)
 except:
@@ -10,6 +10,7 @@ except:
 if erro == 1 or number < 0:
     print('Entrada inválida')
 else:
+    print('Conjectura de Collatz para N =',number)
     #Se par, number/2. Se ímpar, number*3 + 1
     
     while number != 1:
@@ -18,11 +19,9 @@ else:
             hashtag = int(number)
             number_of_hash = hashtag*'#'
             if number < 10:
-                space = '  '
-                print(number,space,number_of_hash)
+                print("%i\t%s" % (number, number_of_hash))
             else:
-                space = ' '
-                print(number,space,number_of_hash)
+                print("%i\t%s" % (number, number_of_hash))
        
         
         else:
@@ -30,10 +29,8 @@ else:
             hashtag = int(number)
             number_of_hash = hashtag*'#'
             if number < 10:
-                space = '  '
-                print(number,space,number_of_hash)
+                print("%i\t%s" % (number, number_of_hash))
             else:
-                space = ' '
-                print(number,space,number_of_hash)
+                print("%i\t%s" % (number, number_of_hash))
     
        
