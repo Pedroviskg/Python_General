@@ -1,0 +1,42 @@
+n = int(input())
+sum_consum = 0
+car        = []
+consumes   = []
+b_average  = []
+
+#Carros na lista
+for i in range(0,n):
+    car.append(str(input()))
+    consumes.append(float(input()))
+    
+#Consumo individual
+for i in range(0, len(consumes)):
+    sum_consum += consumes[i]
+    
+media = (sum_consum)/(len(consumes))
+
+#Qual carro está acima da média?
+for i in range(0, len(consumes)):
+    if consumes[i] > media:
+        b_average.append(car[i])
+
+e_l     = consumes[0]
+economic = car[0]
+
+#Qual o carro mais economico?
+for i in range(0, len(consumes)):
+    if consumes[i] > e_l:
+        economic = car[i]
+        e_l = consumes[i]
+
+    
+        
+print('Consumo médio (km/l): %.1f' % (media))
+print('Carro mais econômico:', economic)
+print('Carros com taxa de consumo acima da média:')
+#Printa os carros acima da média
+for i in range(0, len(b_average)):
+    print('-',b_average[i])
+        
+    
+    
