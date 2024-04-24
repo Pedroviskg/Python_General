@@ -1,0 +1,33 @@
+n_1 = int(input())
+n_2 = int(input())
+
+test_1    = int(n_1/2)
+test_2    = int(n_2/2)
+div_1     = 0
+div_2     = 0
+sum_div_1 = 0
+sum_div_2 = 0
+
+print('Divisores próprios de %i:'% (n_1),end=' ')
+for i in range(1, test_1 + 1):
+    k = int(i)
+    if n_1 % k == 0:
+        print(k, end=' ')
+        sum_div_1 = sum_div_1 + k
+print('cuja soma é %i' % (sum_div_1))
+
+
+print('Divisores próprios de %i:'% (n_2),end=' ')
+for i in range(1, test_2 + 1):
+    k = int(i)
+    if n_2 % k == 0:
+        print(k, end=' ')
+        sum_div_2 = sum_div_2 + k
+print('cuja soma é %i' % (sum_div_2))
+
+
+if sum_div_1 == n_2 and sum_div_2 ==n_1:
+    print(n_1,'e',n_2,'são amigos')
+else:
+    print(n_1,'e',n_2,'não são amigos')
+
