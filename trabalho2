@@ -1,0 +1,159 @@
+import csv
+
+total    = {"2001": 5, "2002": 7, "2003": 9, "2004": 11, "2005": 13, "2006": 15, "2007": 17, "2008": 19, "2009": 21, "2010": 23, "2011": 25, "2012": 27, "2013": 29, "2014": 31, "2015": 33, "2016": 35}
+nascidos = {"2001": 4, "2002": 6, "2003": 8, "2004": 10, "2005": 12, "2006": 14, "2007": 16, "2008": 18, "2009": 20, "2010": 22, "2011": 24, "2012": 26, "2013": 28, "2014": 30, "2015": 32, "2016": 34}
+
+def boas_vindas():
+  print("\n")
+  print("Análise de taxas de natalidade.")
+  print("Cuidados: o nome da cidade deve ser escrita de forma exata, respeitando as letras maíusculas iniciais. O ano deve estar contido entre 2001 e 2016.")
+  print("Escolha uma opção para prosseguir:")
+  print("1. Taxa de natalidade de uma cidade A em um ano X.")
+  print("2. Comparar taxa de natalidade entre cidades A e B em um ano X.")
+  print("3. Média da taxa de natalidade entre os anos X e Y.")
+
+def despedida():
+  print("\nFinalizando. Obrigado por usar.")
+
+def natalidade(arquivo, cidade, ano):
+
+  arquivo.seek(0)
+  reader = csv.reader(arquivo)
+
+  encontrada = False
+  for coluna in reader:
+    if cidade == coluna[0]:
+      encontrada == True
+      populacao   = float(coluna[total[ano]])
+      nascimentos = float(coluna[nascidos[ano]])
+      taxa = float((nascimentos/populacao)*100)
+      return taxa
+          
+  if encontrada == False:
+    return False
+    
+def comparador(arquivo, cidade1, cidade2, ano, funcao):
+
+  arquivo.seek(0)
+  primeira_taxa = float(funcao(arquivo, cidade1, ano))
+  arquivo.seek(0)
+  segunda_taxa  = float(funcao(arquivo, cidade2, ano))
+
+  
+  if primeira_taxa == False:
+    print("Cidade A não existe ou não pertence ao RS. Tente novamente.")
+    return False
+  if segunda_taxa == False:
+    print("Cidade B não existe ou não pertence ao RS. Tente novamente.")
+    return False
+
+  if primeira_taxa > segunda_taxa:
+    print("Em %s, %s tem a maior taxa de natalidade (%.2f%%) e a cidade de %s tem a menor taxa de natalidade (%.2f%%)." % (ano, cidade1, primeira_taxa, cidade2, segunda_taxa))
+  else: 
+    print("Em %s, %s tem a maior taxa de natalidade (%.2f%%) e a cidade de %s tem a menor taxa de natalidade (%.2f%%)." % (ano, cidade2, segunda_taxa, cidade1, primeira_taxa))
+  
+
+  
+def media(arquivo, cidade, ano1, ano2):
+  arquivo.seek(0)
+  reader = csv.reader(arquivo)
+
+  ano1_int = int(ano1)
+  ano2_int = int(ano2)
+
+  encontrado = False
+  for coluna in reader:
+    if cidade == coluna[0]:
+      encontrado = True
+      diferenca = ano2_int - ano1_int + 1
+      
+      x = diferenca
+      lista_populacao = []
+      a = total[ano1]
+      while x != 0:
+        lista_populacao.append(int(a))
+        a = a + 2
+        x = x - 1
+
+      y = diferenca
+      lista_natalidade = []
+      b = nascidos[ano1]
+      while y != 0:
+        lista_natalidade.append(int(b))
+        b = b + 2
+        y = y - 1
+    
+      taxas_natalidades = []
+      for i in range(len(lista_natalidade)):
+        f = float(coluna[lista_natalidade[i]])
+        g = float(coluna[lista_populacao[i]])
+        razao = float(f/g)
+        taxas_natalidades.append(razao)
+
+      soma_taxas = sum(taxas_natalidades)
+      media = float(sum(taxas_natalidades)*100/diferenca)
+  
+  if encontrado == False:
+    print("Cidade não existe ou não pertence ao RS. Tente novamente.")
+  else:
+    print("A taxa de natalidade de %s nesse período foi de %.2f%%." % (cidade, media))
+
+
+def main():
+  try:
+    with open("/natalidade_e_populacao_total.csv", "r", encoding="latin1") as f:
+
+      boas_vindas()
+      while True:
+
+        n = int(input("Selecione a sua opção (digite -1 para fechar o programa, inteiros diferentes não são reconhecidos): "))
+        
+        if n == 1:
+          print("\n")
+          cidade = str(input("Digite a cidade A: "))
+          ano    = str(input("Digite o ano: "))
+
+          if ano in total:
+            taxa = natalidade(f,cidade,ano)
+            if taxa == False:
+              print("Cidade A não existe ou não pertence ao RS. Tente novamente.")
+            else: 
+              print("A taxa de natalidade de %s no ano de %s foi de %.2f%%" % (cidade, ano, taxa))
+          else:
+             print("Esse ano não possui informações.")
+        
+        if n == 2:
+          print("\n")
+          cidade1 = str(input("Digite a cidade A: "))
+          cidade2 = str(input("Digite a cidade B: "))
+          ano     = str(input("Digite o ano: "))
+          if ano in total:
+            comparador(f, cidade1, cidade2, ano, natalidade)
+          else:
+            print("Esse ano não possui informações.")
+          
+        if n == 3:
+          print("\n")
+          cidade = str(input("Digite a cidade A: "))
+          ano1   = str(input("Digite o ano inicial: "))
+          ano2   = str(input("Digite o ano final: "))
+          if ano1 < ano2:
+            if ano1 in total and ano2 in total:
+              media(f, cidade, ano1, ano2)
+            else:
+             print("Esse ano não possui informações.")
+          else:
+            print("O ano inicial deve ser menor que o ano final!")
+
+        if n == -1:
+          break;
+    
+
+      
+
+      despedida()
+
+  except OSError:
+    print("Arquivo não encontrado.", OSError)
+
+main()
