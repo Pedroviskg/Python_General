@@ -15,7 +15,7 @@ def create_maze(width, height, cell_size, wall_colors, path_color, complexidade 
     # Cria uma matriz para o labirinto
     maze_grid = [[0 for _ in range(cols)] for _ in range(rows)]
 
-    def carve_maze(cx, cy):
+    def carve_maze(cx = 0, cy = 0):
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         random.shuffle(directions)
         for dx, dy in directions:
@@ -30,18 +30,19 @@ def create_maze(width, height, cell_size, wall_colors, path_color, complexidade 
     carve_maze(0, 0)
 
     # Desenha as paredes do labirinto
-    for y in range(rows):
-        for x in range(cols):
-            if maze_grid[y][x] == 0:
-                color_index = (y + x * complexidade) % len(wall_colors)
-                color = wall_colors[color_index]
+    
+    for x in range(rows):
+        for y in range(cols):
+            if maze_grid[x][y] == 0:
+                color_index = (x + y * complexidade) % len(wall_colors) 
+                color = (wall_colors[color_index])
                 draw.rectangle(
-                    [x * cell_size, y * cell_size, (x + 1) * cell_size, (y + 1) * cell_size],
+                    [y * cell_size, x * cell_size, (y + 1) * cell_size, (x + 1) * cell_size],
                     fill=color
                 )
             else:
                 draw.rectangle(
-                    [x * cell_size, y * cell_size, (x + 1) * cell_size, (y + 1) * cell_size],
+                    [y * cell_size, x * cell_size, (y + 1) * cell_size, (x + 1) * cell_size],
                     fill=path_color
                 )
     
@@ -51,12 +52,17 @@ def update_image():
     width = root.winfo_width()
     height = root.winfo_height()
     
+    # Correção que garante que a cor não será a mesma em um pixel
+    
+    aleatorio = [0,1,2]
+    random.shuffle(aleatorio)
+    
     cell_size = int(cell_size_var.get())
-    wall_colors = [color_vars[i].get() for i in range(5) if color_vars[i].get()]
+    wall_colors = [color_vars[i].get() for i in aleatorio if color_vars[i].get()]
     path_color = path_color_var.get()
     
     if not wall_colors:
-        wall_colors = ['#000000']  # Default to black if no colors are selected
+        wall_colors = ['#000000']  # Cor padrão (preto)
     
     maze = create_maze(width, height, cell_size, wall_colors, path_color)
     photo = ImageTk.PhotoImage(maze)
@@ -130,9 +136,9 @@ root.title("Arte gerativa - Labirínto")
 
 # Variáveis padrão
 
-color_vars = [tk.StringVar(value='') for _ in range(5)]     # Até 5 cores
+color_vars = [tk.StringVar(value='') for _ in range(5)]     # Até 3 cores
 path_color_var = tk.StringVar(value='#FFFFFF')              # Cor do caminho padrão (branco)
-cell_size_var = tk.IntVar(value=20)                         # Tamanho da célula padrão
+cell_size_var = tk.IntVar(value=10)                         # Tamanho da célula padrão
 
 # Cria um canvas para desenhar o labirinto
 
