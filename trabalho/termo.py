@@ -7,7 +7,7 @@ def boas_vindas():
     print("* Uma palavra de 5 letras, 6 tentativas.")
     print("* Caso a palavra inserida tenha a mesma letra na mesma posição da palavra a ser adivinhada, ela aparecerá em maíusculo.")
     print("* Caso a palavra inserida tenha uma letra em comum com a palavra a ser adivinhada, mas está na posição errada, ela aparecerá em minúsculo.")
-    print("* Letras podem ou não aparecer mais de uma vez. Palavras repitidas contam como posição errada.")
+    print("* Letras podem ou não aparecer mais de uma vez. Palavras repetidas contam como posição errada.")
     print("* Letras sem correlação com a palavra a ser adivinhada são representadas por um _.", end="\n \n")
     print("Obs.: Números e caracteres especiais NÃO são aceitos!", end="\n \n")
 
